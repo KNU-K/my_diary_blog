@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const user = require("./user.index");
+const board = require("./board.index");
 /** controller user
  *
  * @FUNC1 create
@@ -9,4 +10,5 @@ const user = require("./user.index");
  * @FUNC5
  */
 router.use("/user", user);
+router.use("/board", board);
 module.exports = router;
