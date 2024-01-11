@@ -7,8 +7,9 @@ class ServerManger {
   config(config) {
     const middlewares = config.middlewares;
     const routes = config.routes;
-    this.routeApi(routes);
+
     this.routeMiddleware(middlewares);
+    this.routeApi(routes);
 
     return this;
   }
