@@ -16,7 +16,7 @@ User.associate({ Board, Comment });
 Board.associate({ User, Comment });
 Comment.associate({ User, Board });
 
-sequelize.sync({ force: true }).then(() => {
+sequelize.sync({ force: false }).then(() => {
   console.log("Database synced successfully.");
 });
 
