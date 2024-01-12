@@ -6,12 +6,11 @@ const port = process.env.SERVER_PORT || 8080;
 (function main() {
   new ServerManger(port)
     .config({
-      middlewares: [
-        express.json(),
-        express.urlencoded({ extended: false }),
-        errorMiddleware,
+      middlewares: [express.json(), express.urlencoded({ extended: false })],
+      routes: [
+        ["/api", apiIndex],
+        ["/api", errorMiddleware],
       ],
-      routes: [["/api", apiIndex]],
     })
     .run();
 })();

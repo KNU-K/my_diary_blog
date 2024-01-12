@@ -2,6 +2,7 @@ const router = require("express").Router();
 const user = require("./user.index");
 const board = require("./board.index");
 const comment = require("./comment.index");
+const auth = require("./auth.index");
 /** controller user
  *
  * @FUNC1 create
@@ -13,4 +14,5 @@ const comment = require("./comment.index");
 router.use("/user", user);
 router.use("/board", board);
 router.use("/board/:boardId/comment", comment);
+router.use("/auth", auth);
 module.exports = router;

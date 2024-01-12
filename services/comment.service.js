@@ -45,9 +45,15 @@ class CommentService {
       throw e;
     }
   }
-  async deleteCommentByBoardIdAndCommentId(boardId, commentId) {
+  async deleteCommentByBoardIdAndCommentIdAndUserId(
+    boardId,
+    commentId,
+    userId
+  ) {
     try {
-      await Comment.destroy({ where: { id: commentId, b_id: boardId } });
+      await Comment.destroy({
+        where: { id: commentId, b_id: boardId, u_id: userId },
+      });
     } catch (e) {
       throw e;
     }
