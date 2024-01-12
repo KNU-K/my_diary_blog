@@ -4,7 +4,10 @@ const createComment = async (req, res, next) => {
   try {
     const { boardId } = req.params;
     const comment = req.body;
-    await commentService.createByBoardId(boardId, comment);
+    await commentService.createByBoardId(boardId, {
+      u_id: req.user.u_id,
+      ...comment,
+    });
     res.send({ msg: "Successfully create comment" });
   } catch (e) {
     next(e);
@@ -28,7 +31,10 @@ const updateComment = async (req, res, next) => {
     await commentService.updateCommentByBoardIdAndCommentId(
       boardId,
       commentId,
-      updatedComment
+      {
+        u_id: req.user.u_id,
+        ...updatedComment,
+      }
     );
     res.send({ msg: "successfully update comment" });
   } catch (e) {
@@ -38,7 +44,11 @@ const updateComment = async (req, res, next) => {
 const deleteComment = async (req, res, next) => {
   try {
     const { boardId, commentId } = req.params;
-    await commentService.deleteCommentByBoardIdAndCommentId(boardId, commentId);
+    await commentService.deleteCommentByBoardIdAndCommentIdAndUserId(
+      boardId,
+      commentId,
+      req.user.u_id
+    );
     res.send({ msg: "successfully delete comment" });
   } catch (e) {
     next(e);
