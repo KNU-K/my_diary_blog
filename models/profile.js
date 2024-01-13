@@ -6,10 +6,12 @@ module.exports = (sequelize) => {
      *
      */
     image: {
-      type: DataTypes.BLOB, // 바이너리 데이터로 이미지 저장
+      type: DataTypes.TEXT, // 바이너리 데이터로 이미지 저장
+      defaultValue: "/image/default.jpg",
     },
     introduction: {
       type: DataTypes.TEXT,
+      defaultValue: "",
     },
   });
 

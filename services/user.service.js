@@ -1,4 +1,4 @@
-const { User, Follow } = require("../models");
+const { User, Follow, Profile } = require("../models");
 class UserService {
   users = [];
   constructor() {
@@ -13,6 +13,9 @@ class UserService {
   async create(user) {
     try {
       const createdUser = await User.create(user);
+      const createdProfile = await Profile.create({ u_id: user.u_id });
+      console.log(createdProfile);
+      //users 구조 변경할 수도
       this.users.push(createdUser.dataValues);
 
       return createdUser;
@@ -66,6 +69,27 @@ class UserService {
       this.users = this.users.filter((user) => {
         user.u_id !== userId;
       });
+    } catch (e) {
+      throw e;
+    }
+  }
+  /**@PROFILE_PART */
+  async findProfileByUserId(userId) {
+    try {
+      const foundProfile = await Profile.findAll({
+        where: {
+          u_id: userId,
+        },
+      });
+
+      return foundProfile[0];
+    } catch (e) {
+      throw e;
+    }
+  }
+  async updateProfileByUserId(userId, profile) {
+    try {
+      await Profile.update(profile, { where: { u_id: userId } });
     } catch (e) {
       throw e;
     }
