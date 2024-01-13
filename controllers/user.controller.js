@@ -24,6 +24,8 @@ const findUser = async (req, res, next) => {
 const updateUser = async (req, res, next) => {
   try {
     const { userId } = req.params;
+
+    if (req.user.u_id !== userId) throw new Error("not Matched User");
     const updatedUser = req.body;
     await userService.updateUserByUserId(userId, updatedUser);
     res.send({ msg: "successfully update user" });
@@ -34,10 +36,96 @@ const updateUser = async (req, res, next) => {
 const deleteUser = async (req, res, next) => {
   try {
     const { userId } = req.params;
+
+    if (req.user.u_id !== userId) throw new Error("not Matched User");
     await userService.deleteUserByUserId(userId);
     res.send({ msg: "successfully delete user" });
   } catch (e) {
     next(e);
   }
 };
-module.exports = { updateUser, findUser, createUser, updateUser, deleteUser };
+const createFollowing = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const { targetUserId } = req.body;
+    if (userId !== req.user.u_id)
+      throw new Error("you're not exist access permission");
+    await userService.createFollowing(userId, targetUserId);
+    res.send({ msg: "successfully following" });
+  } catch (e) {
+    next(e);
+  }
+};
+const updateProfile = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const { introduction } = req.body;
+    const { destination, filename } = req.file;
+    const staticImgPath = destination + filename;
+    /**TODO:
+     * 1. save only introduction
+     * 2. save only image
+     * 3. save both introduction and image
+     * 4. not exist all file
+     */
+    await userService.updateProfileByUserId(userId, {
+      image: staticImgPath,
+      introduction: introduction,
+    });
+    res.send({ msg: "successfully update user's profile" });
+  } catch (e) {
+    next(e);
+  }
+};
+const findProfile = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const foundProfile = await userService.findProfileByUserId(userId);
+    res.send(foundProfile);
+  } catch (e) {
+    next(e);
+  }
+};
+const findFollowing = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const followingList = await userService.findFollowingByUserId(userId);
+    res.send(followingList);
+  } catch (e) {
+    next(e);
+  }
+};
+const findFollower = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const followerList = await userService.findFollowerByUserId(userId);
+    res.send(followerList);
+  } catch (e) {
+    next(e);
+  }
+};
+const deleteFollowing = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    if (userId !== req.user.u_id)
+      throw new Error("you're not exist access permission");
+
+    await userService.deleteFollowing(userId);
+    res.send({ msg: "successfully cancel following" });
+  } catch (e) {
+    next(e);
+  }
+};
+module.exports = {
+  updateUser,
+  findUser,
+  createUser,
+  updateUser,
+  deleteUser,
+  findProfile,
+  updateProfile,
+  createFollowing,
+  findFollowing,
+  findFollower,
+  deleteFollowing,
+};

@@ -2,7 +2,7 @@ const boardService = require("../services/board.service");
 const createBoard = async (req, res, next) => {
   try {
     const board = req.body;
-    await boardService.create(board);
+    await boardService.create({ u_id: req.user.u_id, ...board });
     res.send({ msg: "Successfully create board" });
   } catch (e) {
     next(e);
@@ -23,7 +23,11 @@ const updateBoard = async (req, res, next) => {
   try {
     const { boardId } = req.params;
     const updatedBoard = req.body;
-    await boardService.updateBoardByBoardId(boardId, updatedBoard);
+    await boardService.updateBoardByBoardIdAndUserId(
+      boardId,
+      req.user.u_id,
+      updatedBoard
+    );
     res.send({ msg: "successfully update boards" });
   } catch (e) {
     next(e);
@@ -32,7 +36,7 @@ const updateBoard = async (req, res, next) => {
 const deleteBoard = async (req, res, next) => {
   try {
     const { boardId } = req.params;
-    await boardService.deleteBoardByBoardId(boardId);
+    await boardService.deleteBoardByBoardId(boardId, req.user.u_id);
     res.send({ msg: "successfully delete board" });
   } catch (e) {
     next(e);
