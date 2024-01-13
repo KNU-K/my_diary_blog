@@ -13,7 +13,7 @@ class CommentService {
   }
   async findCommentByBoardIdAndCommentId(boardId, commentId) {
     try {
-      const foundComment = Comment.findAll({
+      const foundComment = await Comment.findAll({
         where: {
           id: commentId,
           b_id: boardId,
