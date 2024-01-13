@@ -56,6 +56,36 @@ const createFollowing = async (req, res, next) => {
     next(e);
   }
 };
+const updateProfile = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const { introduction } = req.body;
+    const { destination, filename } = req.file;
+    const staticImgPath = destination + filename;
+    /**TODO:
+     * 1. save only introduction
+     * 2. save only image
+     * 3. save both introduction and image
+     * 4. not exist all file
+     */
+    await userService.updateProfileByUserId(userId, {
+      image: staticImgPath,
+      introduction: introduction,
+    });
+    res.send({ msg: "successfully update user's profile" });
+  } catch (e) {
+    next(e);
+  }
+};
+const findProfile = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const foundProfile = await userService.findProfileByUserId(userId);
+    res.send(foundProfile);
+  } catch (e) {
+    next(e);
+  }
+};
 const findFollowing = async (req, res, next) => {
   try {
     const { userId } = req.params;
@@ -92,6 +122,8 @@ module.exports = {
   createUser,
   updateUser,
   deleteUser,
+  findProfile,
+  updateProfile,
   createFollowing,
   findFollowing,
   findFollower,

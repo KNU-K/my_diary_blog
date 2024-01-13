@@ -1,3 +1,4 @@
+const { multer } = require("../config/multer-config");
 const {
   createUser,
   findUser,
@@ -6,8 +7,9 @@ const {
   createFollowing,
   findFollower,
   findFollowing,
-  deleteFollower,
   deleteFollowing,
+  findProfile,
+  updateProfile,
 } = require("../controllers/user.controller");
 const guardMiddleware = require("../middlewares/guard.middleware");
 
@@ -31,4 +33,12 @@ router.post("/:userId/following", guardMiddleware, createFollowing);
 router.get("/:userId/follower", findFollower);
 router.get("/:userId/following", findFollowing);
 router.delete("/:userId/following", guardMiddleware, deleteFollowing);
+
+router.get("/:userId/profile", findProfile);
+router.post(
+  "/:userId/profile",
+  guardMiddleware,
+  multer.single("img"),
+  updateProfile
+);
 module.exports = router;
