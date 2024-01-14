@@ -27,7 +27,7 @@ class UserService {
   async findUserByUserId(userId) {
     try {
       const foundUser = this.users.find((user) => user.u_id == userId);
-      if (!foundUser) throw Error("not found user");
+      if (!foundUser) throw new Error("not found user");
       return foundUser;
     } catch (e) {
       throw e;
