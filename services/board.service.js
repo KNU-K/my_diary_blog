@@ -21,7 +21,7 @@ class BoardService {
   }
   async create(board) {
     try {
-      const createdBoard = Board.create(board);
+      const createdBoard = await Board.create(board);
       this.boards.push(createdBoard.dataValues);
       return createdBoard;
     } catch (e) {
