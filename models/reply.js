@@ -1,37 +1,40 @@
 const { DataTypes } = require("sequelize");
 
 module.exports = (sequelize) => {
-  const Board = sequelize.define("Board", {
-    b_id: {
-      type: DataTypes.INTEGER,
-      autoIncrement: true,
+  const Reply = sequelize.define("Reply", {
+    /**
+     *
+     */
+    r_id: {
+      type: DataTypes.INTEGER, // 바이너리 데이터로 이미지 저장
       primaryKey: true,
+      autoIncrement: true,
     },
-    b_title: {
-      type: DataTypes.STRING,
-    },
-    b_contents: {
+    r_content: {
       type: DataTypes.TEXT,
+      allowNull: false,
     },
   });
 
-  Board.associate = (models) => {
-    Board.belongsTo(models.User, {
+  Reply.associate = (models) => {
+    Reply.belongsTo(models.User, {
       foreignKey: "u_id",
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
-    Board.hasMany(models.Comment, {
-      foreignKey: "b_id",
+
+    Reply.belongsTo(models.Comment, {
+      foreignKey: "c_id",
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
-    Board.hasMany(models.Reply, {
+
+    Reply.belongsTo(models.Board, {
       foreignKey: "b_id",
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
   };
 
-  return Board;
+  return Reply;
 };
