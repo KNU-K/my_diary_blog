@@ -1,4 +1,4 @@
-const { Comment } = require("../models");
+const { Comment, Reply } = require("../models");
 
 class CommentService {
   constructor() {}
@@ -13,7 +13,7 @@ class CommentService {
   }
   async findCommentByBoardIdAndCommentId(boardId, commentId) {
     try {
-      const foundComment = Comment.findAll({
+      const foundComment = await Comment.findAll({
         where: {
           id: commentId,
           b_id: boardId,
@@ -53,6 +53,74 @@ class CommentService {
     try {
       await Comment.destroy({
         where: { id: commentId, b_id: boardId, u_id: userId },
+      });
+    } catch (e) {
+      throw e;
+    }
+  }
+  async createReplyUsingCommentId(userId, boardId, commentId, content) {
+    try {
+      await Reply.create({
+        u_id: userId,
+        b_id: boardId,
+        c_id: commentId,
+        r_content: content,
+      });
+    } catch (e) {
+      throw e;
+    }
+  }
+  async findUserByReplyId(replyId) {
+    try {
+      const foundData = await Reply.findByPk(replyId);
+      return foundData.u_id;
+    } catch (e) {
+      throw e;
+    }
+  }
+  async findAllReplyByBoardIdAndCommentId(boardId, commentId) {
+    try {
+      const foundReply = await Reply.findAll({
+        where: {
+          b_id: boardId,
+          c_id: commentId,
+        },
+      });
+      return foundReply;
+    } catch (e) {
+      throw e;
+    }
+  }
+  async updateReplyByBoardIdAndCommentIdAndReplyId(
+    boardId,
+    commentId,
+    replyId,
+    content
+  ) {
+    try {
+      await Reply.update(content, {
+        where: {
+          b_id: boardId,
+          c_id: commentId,
+          r_id: replyId,
+        },
+      });
+    } catch (e) {
+      throw e;
+    }
+  }
+  async deleteReplyByBoardIdAndCommentIdAndReplyId(
+    boardId,
+    commentId,
+    replyId
+  ) {
+    try {
+      await Reply.destroy({
+        where: {
+          b_id: boardId,
+          c_id: commentId,
+          r_id: replyId,
+        },
       });
     } catch (e) {
       throw e;

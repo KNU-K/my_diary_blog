@@ -1,5 +1,5 @@
 const bcrypt = require("bcrypt");
-bcrypt.genSalt;
+
 class CryptoUtil {
   constructor(round) {
     this.salt = bcrypt.genSaltSync(round);
