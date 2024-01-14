@@ -3,6 +3,10 @@ const {
   createComment,
   updateComment,
   deleteComment,
+  deleteReply,
+  updateReply,
+  findAllReply,
+  createReply,
 } = require("../controllers/comment.controller");
 const guardMiddleware = require("../middlewares/guard.middleware");
 
@@ -14,4 +18,10 @@ router.get("/", findComment);
 router.get("/:commentId", findComment);
 router.put("/:commentId", guardMiddleware, updateComment);
 router.delete("/:commentId", guardMiddleware, deleteComment);
+
+/** @reply **/
+router.post("/:commentId/reply", guardMiddleware, createReply);
+router.get("/:commentId/reply", findAllReply);
+router.put("/:commentId/reply/:replyId", guardMiddleware, updateReply);
+router.delete("/:commentId/reply/:replyId", guardMiddleware, deleteReply);
 module.exports = router;
