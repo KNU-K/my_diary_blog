@@ -11,7 +11,7 @@ module.exports = (sequelize) => {
       type: DataTypes.STRING,
     },
     b_contents: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
     },
   });
 
