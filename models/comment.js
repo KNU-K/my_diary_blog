@@ -18,6 +18,11 @@ module.exports = (sequelize) => {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
+    Comment.hasMany(models.Reply, {
+      foreignKey: "c_id",
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    });
   };
 
   return Comment;
