@@ -25,6 +25,21 @@ module.exports = (sequelize) => {
       onDelete: "CASCADE",
       onUpdate: "CASCADE",
     });
+    User.hasOne(models.Profile, {
+      foreignKey: "u_id",
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    });
+    User.hasMany(models.Follow, {
+      foreignKey: "u_id",
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    });
+    User.hasMany(models.Follow, {
+      foreignKey: "following_id",
+      onDelete: "CASCADE",
+      onUpdate: "CASCADE",
+    });
   };
 
   return User;

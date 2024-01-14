@@ -27,16 +27,16 @@ class BoardService {
       throw e;
     }
   }
-  async updateBoardByBoardId(boardId, board) {
+  async updateBoardByBoardIdAndUserId(boardId, userId, board) {
     try {
-      await Board.update(board, { where: { b_id: boardId } });
+      await Board.update(board, { where: { b_id: boardId, u_id: userId } });
     } catch (e) {
       throw e;
     }
   }
-  async deleteBoardByBoardId(boardId) {
+  async deleteBoardByBoardId(boardId, userId) {
     try {
-      await Board.destroy({ where: { b_id: boardId } });
+      await Board.destroy({ where: { b_id: boardId, u_id: userId } });
     } catch (e) {
       throw e;
     }
