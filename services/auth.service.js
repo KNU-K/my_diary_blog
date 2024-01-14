@@ -10,7 +10,23 @@ const tokenUtil1 = new TokenUtil(ACCESS_TOKEN_SECRET);
 const tokenUtil2 = new TokenUtil(REFRESH_TOKEN_SECRET);
 class AuthService {
   constructor() {}
-  verify() {}
+  async verifyRefreshTokenAndReIssue(user, refreshToken) {
+    try {
+      await tokenUtil2.verifyToken(refreshToken);
+      const savedToken = await redisClient.get(user.u_id);
+      if (savedToken !== refreshToken) throw new Error("expired refresh token");
+      const accessToken = await tokenUtil1.generateToken(
+        {
+          u_id: user.u_id,
+          u_name: user.u_name,
+        },
+        "20s"
+      );
+      return { accessToken: accessToken };
+    } catch (e) {
+      throw e;
+    }
+  }
   async login(u_id, u_password) {
     try {
       const user = await User.findByPk(u_id);
@@ -23,7 +39,7 @@ class AuthService {
           u_id: user.dataValues.u_id,
           u_name: user.dataValues.u_name,
         },
-        "10m"
+        "20s"
       );
       const refreshToken = await tokenUtil2.generateToken(
         {
@@ -42,8 +58,10 @@ class AuthService {
       throw e;
     }
   }
-  async logout(userId) {
+  async logout(refreshToken, userId) {
     try {
+      const savedToken = await redisClient.get(userId);
+      if (refreshToken !== savedToken) throw new Error("not mated token");
       await redisClient.del(userId);
     } catch (e) {
       throw e;
