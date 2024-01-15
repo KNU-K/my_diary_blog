@@ -39,7 +39,7 @@ class AuthService {
           u_id: user.dataValues.u_id,
           u_name: user.dataValues.u_name,
         },
-        "20s"
+        "1d"
       );
       const refreshToken = await tokenUtil2.generateToken(
         {

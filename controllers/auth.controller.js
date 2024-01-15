@@ -6,6 +6,8 @@ const login = async (req, res, next) => {
       u_id,
       u_password
     );
+    console.log(accessToken);
+    console.log(refreshToken);
     res.send({ accessToken: accessToken, refreshToken: refreshToken });
   } catch (e) {
     next(e);
