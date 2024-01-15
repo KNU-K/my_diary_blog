@@ -2,6 +2,7 @@ const boardService = require("../services/board.service");
 const createBoard = async (req, res, next) => {
   try {
     const board = req.body;
+    console.log(req.body);
     await boardService.create({ u_id: req.user.u_id, ...board });
     res.send({ msg: "Successfully create board" });
   } catch (e) {
