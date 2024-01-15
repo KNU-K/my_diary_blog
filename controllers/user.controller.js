@@ -60,6 +60,7 @@ const updateProfile = async (req, res, next) => {
   try {
     const { userId } = req.params;
     const { introduction } = req.body;
+    console.log(introduction);
     const { destination, filename } = req.file;
     const staticImgPath = destination + filename;
     /**TODO:
@@ -80,7 +81,20 @@ const updateProfile = async (req, res, next) => {
 const findProfile = async (req, res, next) => {
   try {
     const { userId } = req.params;
-    const foundProfile = await userService.findProfileByUserId(userId);
+    let foundProfile = await userService.findProfileByUserId(userId);
+    foundProfile.image = `http://localhost:8080/${foundProfile.image}`;
+    res.send(foundProfile);
+  } catch (e) {
+    next(e);
+  }
+};
+const findProfile2 = async (req, res, next) => {
+  try {
+    console.log("a");
+    const { u_id } = req.user;
+    console.log(req.user);
+    let foundProfile = await userService.findProfileByUserId(u_id);
+    foundProfile.image = `http://localhost:8080/${foundProfile.image}`;
     res.send(foundProfile);
   } catch (e) {
     next(e);
@@ -116,6 +130,15 @@ const deleteFollowing = async (req, res, next) => {
     next(e);
   }
 };
+const findBoardByUserId = async (req, res, next) => {
+  try {
+    const { userId } = req.params;
+    const foundBoard = await userService.findBoardByUserId(userId);
+    res.send(foundBoard);
+  } catch (e) {
+    next(e);
+  }
+};
 module.exports = {
   updateUser,
   findUser,
@@ -126,6 +149,8 @@ module.exports = {
   updateProfile,
   createFollowing,
   findFollowing,
+  findProfile2,
   findFollower,
   deleteFollowing,
+  findBoardByUserId,
 };
