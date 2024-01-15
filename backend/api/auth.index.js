@@ -1,5 +1,5 @@
-const { login, logout, refresh } = require("../controllers/auth.controller");
-const guardMiddleware = require("../middlewares/guard.middleware");
+const { login, logout, refresh } = require("../../controllers/auth.controller");
+const guardMiddleware = require("../../middlewares/guard.middleware");
 
 const router = require("express").Router();
 
