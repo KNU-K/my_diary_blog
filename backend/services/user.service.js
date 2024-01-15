@@ -1,4 +1,4 @@
-const { User, Follow, Profile, Board } = require("../models");
+const { User, Follow, Profile, Board } = require("../backend/models");
 
 class UserService {
   users = [];
