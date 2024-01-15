@@ -1,4 +1,5 @@
-const { User, Follow, Profile } = require("../models");
+const { User, Follow, Profile, Board } = require("../models");
+
 class UserService {
   users = [];
   constructor() {
@@ -137,6 +138,14 @@ class UserService {
           u_id: userId,
         },
       });
+    } catch (e) {
+      throw e;
+    }
+  }
+  async findBoardByUserId(userId) {
+    try {
+      const boards = await Board.findAll({ where: { u_id: userId } });
+      return boards;
     } catch (e) {
       throw e;
     }

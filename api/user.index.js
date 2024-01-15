@@ -10,22 +10,75 @@ const {
   deleteFollowing,
   findProfile,
   updateProfile,
+  findBoardByUserId,
+  findProfile2,
 } = require("../controllers/user.controller");
 const guardMiddleware = require("../middlewares/guard.middleware");
 
-const router = require("express").Router();
-/** controller user
- *
- * @FUNC1 create
- * @FUNC2 read (all, target)
- * @FUNC3 update Param으로 userId body 에는 그를 제외한 수정할 정보
- * @FUNC4 delete param으로 userId 받아서 삭제
- *
- * @MIDDLEWARE auth middleware로 접근할 수 있게 해야함.
+const router = require("express").Router({ mergeParams: true });
+/**
+ * @swagger
+ * /user:
+ *   get:
+ *     description: 紐⑤뱺 ?쑀??? ?젙蹂? return
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: Hello, Swagger!
+ */
+/**
+ * @swagger
+ * /user:
+ *  post:
+ *     description: ?쑀??? ?깮?꽦
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               name:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Greeting message created successfully
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: Greeting created for {name}!
+ *       400:
+ *         description: Bad request, missing or invalid parameters
+ */
+/**
+ * @swagger
+ * /user/{userId}:
+ *   get:
+ *     description: Returns a personalized hello message
+ *     parameters:
+ *       - in: path
+ *         name: userId
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The name to include in the hello message
+ *     responses:
+ *       200:
+ *         description: Successful response
+ *         content:
+ *           application/json:
+ *             example:
+ *               message: Hello, John!
  */
 router.post("/", createUser);
 router.get("/", findUser);
+router.get("/profile", guardMiddleware, findProfile2);
+
 router.get("/:userId", findUser);
+router.get("/:userId/board", findBoardByUserId);
 router.put("/:userId", guardMiddleware, updateUser);
 router.delete("/:userId", guardMiddleware, deleteUser);
 
@@ -35,6 +88,7 @@ router.get("/:userId/following", findFollowing);
 router.delete("/:userId/following", guardMiddleware, deleteFollowing);
 
 router.get("/:userId/profile", findProfile);
+
 router.post(
   "/:userId/profile",
   guardMiddleware,
