@@ -1,10 +1,10 @@
 const {
   ACCESS_TOKEN_SECRET,
   REFRESH_TOKEN_SECRET,
-} = require("../config/env-config");
-const { User } = require("../models");
+} = require("../backend/config/env-config");
+const { User } = require("../backend/models");
 const TokenUtil = require("../utils/token.util");
-const redisClient = require("../config/redis-config").client;
+const redisClient = require("../backend/config/redis-config").client;
 //this secret env
 const tokenUtil1 = new TokenUtil(ACCESS_TOKEN_SECRET);
 const tokenUtil2 = new TokenUtil(REFRESH_TOKEN_SECRET);

@@ -1,12 +1,12 @@
 const ServerManger = require("./server.manger");
-const apiIndex = require("./api/index");
+const apiIndex = require("./backend/api/index");
 const errorMiddleware = require("./middlewares/error.middleware");
 const express = require("express");
 const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
 
 const path = require("path");
-const { swaggerSpec } = require("./config/swagger-config");
+const { swaggerSpec } = require("./backend/config/swagger-config");
 const port = process.env.SERVER_PORT || 8080;
 (function main() {
   new ServerManger(port)

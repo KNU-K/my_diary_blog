@@ -12,8 +12,8 @@ const {
   updateProfile,
   findBoardByUserId,
   findProfile2,
-} = require("../controllers/user.controller");
-const guardMiddleware = require("../middlewares/guard.middleware");
+} = require("../../controllers/user.controller");
+const guardMiddleware = require("../../middlewares/guard.middleware");
 
 const router = require("express").Router({ mergeParams: true });
 /**
