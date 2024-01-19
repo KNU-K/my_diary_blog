@@ -1,4 +1,4 @@
-const { User, Follow, Profile, Board } = require("../backend/models");
+const { User, Follow, Profile, Board } = require("../models");
 
 class UserService {
   users = [];
@@ -131,10 +131,11 @@ class UserService {
     }
   }
 
-  async deleteFollowing(userId) {
+  async deleteFollowing(userId, targetUserId) {
     try {
       await Follow.destroy({
         where: {
+          following_id: targetUserId,
           u_id: userId,
         },
       });
