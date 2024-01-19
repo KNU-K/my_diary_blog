@@ -1,4 +1,4 @@
-const { ACCESS_TOKEN_SECRET } = require("../backend/config/env-config");
+const { ACCESS_TOKEN_SECRET } = require("../config/env-config");
 const TokenUtil = require("../utils/token.util");
 const tokenUtil = new TokenUtil(ACCESS_TOKEN_SECRET);
 module.exports = async (req, res, next) => {

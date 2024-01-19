@@ -2,10 +2,12 @@ import React, { useEffect, useState } from "react";
 import { Routes, Route, useParams, Link, useNavigate } from "react-router-dom";
 import Modal from "../components/Modal";
 import {
+  deleteFollowing,
   getFollowers,
   getFollowing,
   getPosts,
   getProfile,
+  postFollowing,
 } from "../services/api";
 
 const User = () => {
@@ -26,7 +28,6 @@ const User = () => {
         setPosts(postsData);
         const response2 = await getProfile(userId);
         setProfile(response2.data);
-        console.log("a", response2);
         const followersResponse = await getFollowers(userId);
 
         setFollowers(followersResponse.data);
@@ -88,6 +89,26 @@ const User = () => {
     }
     return pageNumbers;
   };
+  const runFollowing = async () => {
+    const res = await postFollowing(
+      localStorage.getItem("user"),
+      userId,
+      localStorage.getItem("access")
+    );
+    console.log(res);
+    alert(res.data.msg);
+    window.location.href = "";
+  };
+  const runUnFollowing = async () => {
+    const res = await deleteFollowing(
+      localStorage.getItem("user"),
+      userId,
+      localStorage.getItem("access")
+    );
+    console.log(res);
+    alert(res.data.msg);
+    window.location.href = "";
+  };
   return (
     <div
       style={{
@@ -122,6 +143,45 @@ const User = () => {
           </>
         )}
         <span>{userId}'s Blog</span>
+        {followers.find(
+          (follower) => follower.u_id == localStorage.getItem("user")
+        ) == undefined ? (
+          userId == localStorage.getItem("user") ? (
+            ""
+          ) : (
+            <div>
+              <button
+                style={{
+                  marginLeft: "18px",
+                  backgroundColor: "black",
+                  color: "white",
+                  padding: "10px 20px",
+                  borderRadius: "5px",
+                  cursor: "pointer",
+                }}
+                onClick={runFollowing}
+              >
+                follow
+              </button>
+            </div>
+          )
+        ) : (
+          <div>
+            <button
+              style={{
+                marginLeft: "18px",
+                backgroundColor: "black",
+                color: "white",
+                padding: "10px 20px",
+                borderRadius: "5px",
+                cursor: "pointer",
+              }}
+              onClick={runUnFollowing}
+            >
+              unfollow
+            </button>
+          </div>
+        )}
       </h2>
       <div
         style={{

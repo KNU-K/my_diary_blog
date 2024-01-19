@@ -121,10 +121,12 @@ const findFollower = async (req, res, next) => {
 const deleteFollowing = async (req, res, next) => {
   try {
     const { userId } = req.params;
+    const { targetUserId } = req.body;
+    console.log(userId, targetUserId);
     if (userId !== req.user.u_id)
       throw new Error("you're not exist access permission");
 
-    await userService.deleteFollowing(userId);
+    await userService.deleteFollowing(userId, targetUserId);
     res.send({ msg: "successfully cancel following" });
   } catch (e) {
     next(e);

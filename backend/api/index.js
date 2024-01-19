@@ -1,4 +1,3 @@
-const express = require("express");
 const router = require("express").Router();
 const user = require("./user.index");
 const board = require("./board.index");

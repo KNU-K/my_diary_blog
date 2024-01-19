@@ -14,6 +14,35 @@ export const getPost = (boardId) => api.get(`/board/${boardId}`);
 export const getProfile = (userId) => api.get(`/user/${userId}/profile`);
 export const getFollowers = (userId) => api.get(`/user/${userId}/follower`);
 export const getFollowing = (userId) => api.get(`/user/${userId}/following`);
+export const postFollowing = (userId, targetUserId, token) => {
+  const headers = {
+    // Your custom headers go here
+    Authorization: `Bearer ${token}`,
+    // Add any other headers you need
+  };
+
+  const options = {
+    headers,
+  };
+
+  return api.post(
+    `/user/${userId}/following`,
+    { targetUserId: targetUserId },
+    options
+  );
+};
+export const deleteFollowing = (userId, targetUserId, token) => {
+  const headers = {
+    // Your custom headers go here
+    Authorization: `Bearer ${token}`,
+    // Add any other headers you need
+  };
+
+  return api.delete(`/user/${userId}/following`, {
+    headers,
+    data: { targetUserId: targetUserId },
+  });
+};
 export const getComments = (boardId) => api.get(`/board/${boardId}/comment`);
 export const getReplies = (boardId, commentId) =>
   api.get(`/board/${boardId}/comment/${commentId}/reply`);

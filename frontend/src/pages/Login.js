@@ -27,6 +27,8 @@ const Login = () => {
       const { accessToken, refreshToken } = res.data;
       localStorage.setItem("refresh", refreshToken);
       localStorage.setItem("access", accessToken);
+
+      localStorage.setItem("user", username);
       //setToken(accessToken);
 
       window.location.href = `/user/${username}`;
