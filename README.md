@@ -1,3 +1,9 @@
+## 0. 개발배경 🔥🔥🔥
+One day, while exploring various blogs, I developed a curiosity about how images were processed and how Markdown-formatted posts were stored. This curiosity sparked a desire for development, leading me to commit to creating a more advanced service. I was intrigued by how existing blog platforms handled image data and stored Markdown-formatted content, and I aimed to learn and experience this firsthand.
+
+Although I anticipated numerous technical challenges, surprisingly, frontend development posed minimal difficulties. Efficient learning was facilitated by well-organized documentation. With this background, I embarked on the development journey, creating a basic frontend and leaving room for detailed enhancements later. The motivation was not only to build a new service but also to progressively improve my technical skills through practical application.
+##
+
 ## 1. ERD 설계
 <img width="500px" src="https://github.com/KNU-K/my_diary_blog/assets/126179088/e304f843-b576-401a-86a8-fc0a18ad49f6)">
 
