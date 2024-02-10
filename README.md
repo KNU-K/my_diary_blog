@@ -1,7 +1,26 @@
-## 0. 개발배경 🔥🔥🔥
-One day, while exploring various blogs, I developed a curiosity about how images were processed and how Markdown-formatted posts were stored. This curiosity sparked a desire for development, leading me to commit to creating a more advanced service. I was intrigued by how existing blog platforms handled image data and stored Markdown-formatted content, and I aimed to learn and experience this firsthand.
+## 0. 개발배경 및 사용 기술 스택
+어느 날 여러 블로그를 탐방하던 중 이미지가 어떻게 처리되고 Markdown 형식의 게시물이 어떻게 저장되는지에 대한 궁금증이 생겼습니다. 이 궁금증은 개발에 대한 열망으로 이어져 더 고급 서비스를 만들기로 다짐했습니다. 기존 블로그 플랫폼이 이미지 데이터를 다루고 Markdown 형식의 콘텐츠를 저장하는 방식에 흥미를 느끼며, 이를 직접 학습하고 경험하고자 했습니다.
 
-Although I anticipated numerous technical challenges, surprisingly, frontend development posed minimal difficulties. Efficient learning was facilitated by well-organized documentation. With this background, I embarked on the development journey, creating a basic frontend and leaving room for detailed enhancements later. The motivation was not only to build a new service but also to progressively improve my technical skills through practical application.
+기술적인 어려움이 많이 예상되었지만. 잘 정리된 문서로 효율적인 학습이 가능했습니다. 목표는 새로운 서비스를 구축하는 것보다는 지향하고자하는 서비스를 스며들게하고 아니라 기술적인 스킬을 실제 적용을 통해 점진적으로 향상시키는 것이었습니다.
+
+### 사용 기술 스택
+* BackEnd
+  * express
+  * mysql
+    * sequelize 사용
+  * jwt-auth
+    * redis 활용 
+  * bcrypt 를 통한 암호화
+  * multer middleware 를 통한 이미지 처리
+
+ * FrontEnd
+   * react
+   * markdown Editor을 통해서 개발자들을 쓰기 편하게 구성
+   * axios
+  
+### 개발 인원
+1인 개발 진행
+
 ##
 
 ## 1. ERD 설계
