@@ -26,6 +26,7 @@ class ServerManger {
     });
   }
   run() {
+    
     app.listen(this.port, () => {
       console.log(`server[${this.port}] open`);
     });
