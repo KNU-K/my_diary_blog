@@ -23,9 +23,6 @@ Comment.associate({ User, Board, Reply });
 Follow.associate({ User });
 Profile.associate({ User });
 Reply.associate({ User, Comment, Board });
-sequelize.sync({ force: false }).then(() => {
-  console.log("Database synced successfully.");
-});
 
 module.exports = {
   sequelize,

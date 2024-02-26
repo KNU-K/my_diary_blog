@@ -4,7 +4,7 @@ const errorMiddleware = require("./middlewares/error.middleware");
 const express = require("express");
 const cors = require("cors");
 const swaggerUi = require("swagger-ui-express");
-
+const swaggerFile = require("./swagger-output.json");
 const path = require("path");
 const { swaggerSpec } = require("./config/swagger-config");
 const port = process.env.SERVER_PORT || 8080;
@@ -18,7 +18,7 @@ const port = process.env.SERVER_PORT || 8080;
       ],
       routes: [
         ["/api-docs", swaggerUi.serve],
-        ["/api-docs", swaggerUi.setup(swaggerSpec)],
+        ["/api-docs", swaggerUi.setup(swaggerFile, { explorer: true })],
         ["/image", express.static(path.join(__dirname, "image"))],
         ["/api", apiIndex],
         ["/api", errorMiddleware],

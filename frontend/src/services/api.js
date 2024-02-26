@@ -1,8 +1,7 @@
 // src/services/api.js
 import axios from "axios";
-import { getToken } from "./token";
 
-const BASE_URL = "http://localhost:8080/api"; // 抗力 API 林家
+const BASE_URL = "http://13.125.209.217:8080/api"; // 抗力 API 林家
 
 const api = axios.create({
   baseURL: BASE_URL,

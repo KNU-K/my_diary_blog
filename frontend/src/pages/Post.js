@@ -29,7 +29,7 @@ const Post = () => {
 
         const commentsWithReplies = await Promise.all(
           commentData.map(async (comment) => {
-            const replyResponse = await getReplies(postId, comment.id);
+            const replyResponse = await getReplies(postId, comment.c_id);
             const replyData = replyResponse.data;
             return { ...comment, replies: replyData };
           })
@@ -231,7 +231,7 @@ const Post = () => {
           <h3 style={{ color: "#333" }}>Comments</h3>
           {comments.map((comment) => (
             <div
-              key={comment.id}
+              key={comment.c_id}
               style={{
                 display: "flex",
                 flexDirection: "column",
@@ -239,7 +239,7 @@ const Post = () => {
               }}
             >
               <div
-                onClick={() => handleSelectReply(comment.id)}
+                onClick={() => handleSelectReply(comment.c_id)}
                 style={{
                   border: "1px solid #ddd",
                   borderRadius: "8px",
@@ -260,7 +260,7 @@ const Post = () => {
                 </p>
                 {isSelect === -1 ? (
                   ""
-                ) : isSelect === comment.id ? (
+                ) : isSelect === comment.c_id ? (
                   <div>
                     <hr />
                     <h3 style={{ color: "#333" }}>Add a reply</h3>
@@ -278,7 +278,7 @@ const Post = () => {
                     />
 
                     <button
-                      onClick={() => handleCreateReply(comment.id)}
+                      onClick={() => handleCreateReply(comment.c_id)}
                       style={{
                         padding: "10px 15px",
                         fontSize: "16px",
