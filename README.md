@@ -12,6 +12,7 @@
     * redis 활용 
   * bcrypt 를 통한 암호화
   * multer middleware 를 통한 이미지 처리
+  * swagger를 통한 api-doc 명세 처리
 
  * FrontEnd
    * react
